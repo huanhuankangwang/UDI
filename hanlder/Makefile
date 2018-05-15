@@ -1,16 +1,21 @@
-HOME_PATH := $(shell pwd)
-HOME_PATH_INCLUDE:= $(HOME_PATH)/include
+CURRENT_PWD = $(shell pwd)
 
-HOME_PATH_LIBS:=$(HOME_PATH)/lib
+HANDLE_PATH_INCLUDE:= $(HOME_PATH_INCLUDE)/handler/
 
 CFLAGS  := -lpthread
-CFLAGS2 := -I$(HOME_PATH_INCLUDE) -Wformat-extra-args
-CC:= g++
-LD:=ld
+CFLAGS2 := -I$(HANDLE_PATH_INCLUDE) -Wformat-extra-args
 
-OBJS_TARGET:= utils.o threads.o WKMessage.o WKMessageQueue.o WkHandler.o WKLooper.o Looper.o WKMessageTest.o
+LD_FLAGS:= -shared -fpic
 
-all:wmessagetest
+CC := g++
+LD := ld
+
+OBJS_TARGET_LIBS := utils.o threads.o WKMessage.o WKMessageQueue.o WkHandler.o WKLooper.o Looper.o
+OBJS_TARGET:=  $(OBJS_TARGET_LIBS) WKMessageTest.o
+
+all:wmessagetest libs
+
+libs:libHandle.so
 
 %.o : %.S
 	$(CC) -g -c $^
@@ -22,6 +27,10 @@ all:wmessagetest
 
 wmessagetest:$(OBJS_TARGET)
 	$(CC) -o $@  $^  $(CFLAGS) $(CFLAGS2)
-	
+
+libHandle.so:$(OBJS_TARGET_LIBS)
+	 $(LD) $(LD_FLAGS) -o   $@ $^
+	 echo "install " $@ "to" $(HOME_PATH_LIBS)
+	 mv $@ $(HOME_PATH_LIBS)
 clean:
 	rm *.o wmessagetest -rf
