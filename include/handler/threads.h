@@ -29,8 +29,11 @@
 
 namespace android{
 
+typedef  int 	nsecs_t;
+
 class Mutex {
 public:
+	friend class Condition;
     enum {
         PRIVATE = 0,
         SHARED = 1
@@ -77,8 +80,38 @@ private:
 
 typedef Autolock AutoMutex;
 
+class Condition {
+
+private:
+
+public:
+    enum {
+        PRIVATE = 0,
+        SHARED = 1
+    };
+
+    enum WakeUpType {
+        WAKE_UP_ONE = 0,
+        WAKE_UP_ALL = 1
+    };
+
+    Condition();
+    Condition(int type);
+    ~Condition();
+    // Wait on the condition variable.  Lock the mutex before calling.
+    int wait(Mutex& mutex);
+    // same with relative timeout
+    int waitRelative(Mutex& mutex, nsecs_t reltime);
+    // Signal the condition variable, allowing one thread to continue.
+    void signal();
+    // Signal the condition variable, allowing one or all threads to continue.
+    void signal(WakeUpType type);
+    // Signal the condition variable, allowing all threads to continue.
+    void broadcast();
+private:
+    pthread_cond_t mCond;
+};
+
 }
-
-
 
 #endif // _LIBS_UTILS_THREADS_H

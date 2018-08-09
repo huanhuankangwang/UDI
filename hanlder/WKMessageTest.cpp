@@ -34,21 +34,3 @@ int main(void)
 	LOGD("now,sPoolSize:%d,sPool is %s.",WKMessage::sPoolSize,WKMessage::sPool==NULL?"null":"not null");
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

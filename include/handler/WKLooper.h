@@ -16,8 +16,9 @@ public:
 	bool loop();
 	WKMessageQueue* getMessageQueue();
 	virtual ~WKLooper();
-private:
+
 	static void* looper_thread(void* arg);
+	void doEventLoop();
 private:
 	pthread_t mThreadId;
 	WKMessageQueue* mQueue;
@@ -25,9 +26,3 @@ private:
 }
 
 #endif //:H_QZ_LOOPER
-
-
-
-
-
-

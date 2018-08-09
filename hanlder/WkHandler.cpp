@@ -68,15 +68,3 @@ WKHandler::~WKHandler()
 {
 	mLooper = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-

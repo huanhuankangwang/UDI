@@ -17,6 +17,22 @@
 #endif//
 
 long uptimeMillis();
+int sk_mc_ascutc2time(const char *ascutc);
 
+
+#define  sk_mc_get_processor() NULL
+#define  gettid()		NULL
+
+
+
+typedef  unsigned short  U16;
+
+#define  milliseconds(mils)		((1000*1000)*mils)
+
+int sk_mc_get_rtsp_protocal();
+void sk_mc_set_mul2uni(int val);
+int sk_mc_get_need_mul2uni();
+
+int sk_mc_get_mul2uni();
 
 #endif//_INCLUDE_UTILS_H_

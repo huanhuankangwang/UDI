@@ -82,3 +82,9 @@ void* WKLooper::looper_thread(void* arg)
 	return NULL;
 }
 
+void WKLooper::doEventLoop()
+{
+	mQueue = new WKMessageQueue();
+	looper_thread(this);
+}
+
